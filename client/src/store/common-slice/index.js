@@ -1,9 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Load API URL from environment variables
-const API_URL = import.meta.env.VITE_API_URL;
-
 const initialState = {
   isLoading: false,
   featureImageList: [],
@@ -12,7 +9,10 @@ const initialState = {
 export const getFeatureImages = createAsyncThunk(
   "/order/getFeatureImages",
   async () => {
-    const response = await axios.get(`${API_URL}/api/common/feature/get`);
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL}/api/common/feature/get`
+    );
+
     return response.data;
   }
 );
@@ -20,9 +20,11 @@ export const getFeatureImages = createAsyncThunk(
 export const addFeatureImage = createAsyncThunk(
   "/order/addFeatureImage",
   async (image) => {
-    const response = await axios.post(`${API_URL}/api/common/feature/add`, {
-      image,
-    });
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/common/feature/add`,
+      { image }
+    );
+
     return response.data;
   }
 );
